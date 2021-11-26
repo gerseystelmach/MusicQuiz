@@ -30,13 +30,13 @@ class IndexController extends AbstractController
         $albums = null;
 
 
-        $artistById1 = $music->getArtistById(rand(1, 1000));
-        $artistById2 = $music->getArtistById(rand(1, 1000));
+        $artistById1 = $music->getArtistById(rand(1, 4000));
+        $artistById2 = $music->getArtistById(rand(1, 4000));
+        $artistById3 = $music->getArtistById(rand(1, 4000));
 
-
-        if(isset($artistById1) == false){
+        /*      if(isset($artistById1) == false){
             while (isset($artistById1['name']) == false) {
-                $artistById1 = $music->getArtistById(rand(1, 1000));
+                $artistById1 = $music->getArtistById(rand(1, 500));
                 if(isset($artistById1)){
                     break;
                 }
@@ -45,34 +45,31 @@ class IndexController extends AbstractController
 
         if(isset($artistById2) == false){
             while (isset($artistById1['name']) == false) {
-                $artistById2 = $music->getArtistById(rand(1, 1000));
+                $artistById2 = $music->getArtistById(rand(1, 500));
                 if(isset($artistById2)){
                     break;
                 }
             }
+        } */
+
+        $name1 = $artistById1["name"];
+        $name2 = str_replace(" ", "%20", $name1);
+
+
+        $artist = "";
+        $artists = $music->getArtist($name2, $name1);
+        if (isset($artists[0])) {
+            $artist = $artists[0];
+        } else {
+            $artist = $artists;
         }
-       
+        $albums = $music->getAlbums($artist['id']);
+        $pictures = $music->getPicture($artist['id']);
+        $tracks = $music->getTracks($artist['id']);
 
-
-  /*       if ($form->isSubmitted()) { */
-
-            $name1 = $artistById1["name"]; /* $form->getData()["nom"] */
-            $name2 = str_replace(" ", "%20", $name1);
-      
-
-            $artist = "";
-            $artists = $music->getArtist($name2, $name1);
-            if (isset($artists[0])) {
-                $artist = $artists[0];
-            } else {
-                $artist = $artists;
-            }
-            $albums = $music->getAlbums($artist['id']);
-            $pictures = $music->getPicture($artist['id']);
-            $tracks = $music->getTracks($artist['id']);
-
-     /*        dd($artist);   */  
-   
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            dd($_POST);
+        }
 
         return $this->render('index.html.twig', [
             'artist' => $artist,
@@ -81,9 +78,8 @@ class IndexController extends AbstractController
             'tracks' => $tracks,
             'artistById' => $artistById1,
             'artistById2' => $artistById2,
-            'artistById3' => $artistById3,
-            'artistById4' => $artistById4,
-            'form' => $form->createView()
+            'artistById3' => $artistById3
+
 
         ]);
     }

@@ -30,43 +30,36 @@
 
         <section class="container">
 
-{#             {% form_theme form 'bootstrap_4_layout.html.twig' %}
-            {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <button class="btn btn-primary mb-5">
-                <i class="fa fa-edit"></i>
-                {{ button_label|default('Jouer') }}</button>
-            {{ form_end(form) }} #}
 
-            <div class="bg-light d-flex justify-content-center align-items-center flex-column p-5">
-            {{ dump (tracks)}}
-                {% for track in tracks %}
-                    <h3 class="fw-bold">La musique {{ track["title"] }} appartient à quel chanteur(euse)?</h3>
+            {% for track in tracks %}
+                <form action="" method="post">
+                    <div class="bg-light d-flex justify-content-center align-items-center flex-column p-2 m-3 rounded">
+                        <h3 class="fw-bold">La musique
+                                                        "{{ track["title"] }}"
+                                                        appartient à quel chanteur(euse)?</h3>
 
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
-                        <label class="form-check-label" for="exampleRadios1">
-                           {{ artist.name }}
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                        <label class="form-check-label" for="exampleRadios2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+                            <label class="form-check-label" for="exampleRadios1">
+                                {{ artist.name }}
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                            <label class="form-check-label" for="exampleRadios2">
                                 {{ artistById2.name }}
-                        </label>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                            <label class="form-check-label" for="exampleRadios2">
+                                {{ artistById3.name }}
+                            </label>
+                        </div>
                     </div>
-
-
-                {% endfor %}
-
-            </div>
-           
-
-
-        {#           {% for picture in pictures %}
-                                                <img class="fit-picture" src="{{ picture.url }}" alt="{{ artist.name }}">
-                                            {% endfor %} #}
-
-    </section>
-
-</main>{% endblock %}
+                </form>
+            {% endfor %}
+            <input type="submit" value="Submit">
+        </section>
+    </main>
+{% endblock %}
