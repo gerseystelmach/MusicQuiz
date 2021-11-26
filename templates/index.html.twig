@@ -19,6 +19,10 @@
 
 </main>
     <h2>{{  artist.name }}</h2>
+    {% for album in albums %}
+        Album : {{  album.title }}
+        <br/>
+    {% endfor %}
     {% for picture in pictures %}
         <img class="fit-picture"src="{{ picture.url }}"alt="{{  artist.name }}">
     {% endfor %}

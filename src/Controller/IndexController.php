@@ -22,11 +22,14 @@ class IndexController extends AbstractController
         } else {
             $artist = $artists;
         }
+        $albums = $music->getAlbums($artist['id'])['data']['item'];
+        dd($albums);
         $pictures = $music->getPicture($artist['id'])['data']['item'];
 
         return $this->render('index.html.twig', [
             'artist' => $artist,
             'pictures' => $pictures,
+            'albums' => $albums,
         ]);
     }
 }
