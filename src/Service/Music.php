@@ -78,7 +78,7 @@ class Music
             $json = json_encode($xml);
             $content = json_decode($json,TRUE);
 
-            return $content;
+            return $content['data']['item'];
         }
         throw new RuntimeException('Le service est temporairement indisponible.');
     }
@@ -133,7 +133,7 @@ class Music
             $json = json_encode($xml);
             $content = json_decode($json,TRUE);
 
-            return $content;
+            return $content['data']['item'];
         }
         throw new RuntimeException('Le service est temporairement indisponible.');
     }
@@ -163,7 +163,7 @@ class Music
             $json = json_encode($xml);
             $content = json_decode($json,TRUE);
 
-            return $content;
+            return $content['data']['item'];
         }
         throw new RuntimeException('Le service est temporairement indisponible.');
     }
@@ -193,7 +193,7 @@ class Music
             $json = json_encode($xml);
             $content = json_decode($json,TRUE);
 
-            return $content;
+            return $content['data']['item'];
         }
         throw new RuntimeException('Le service est temporairement indisponible.');
     }
