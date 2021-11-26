@@ -172,3 +172,13 @@ $classes[] = 'Symfony\WebpackEncoreBundle\EventListener\ExceptionListener';
 $classes[] = 'Symfony\WebpackEncoreBundle\Asset\TagRenderer';
 
 Preloader::preload($classes);
+require_once __DIR__.'/twig/df/dfa4566e8acd36ce23fc8dd54d69b7d04b283f43eb6eb16c103e30d924616947.php';
+require_once __DIR__.'/twig/fa/fa97fd505f79c1ac7c7cf277e7d7e7e1a60ebb95c9b175e28bd3914e377699ab.php';
+require_once __DIR__.'/twig/94/94df3edf3ad37ce8bb81946ee261687c1bfd4c0e3cdaccd5ef5dff684c4d3a49.php';
+require_once __DIR__.'/twig/7e/7e8f1c8da20955d13d76dcae17566ddc618706efcc8456bc6eddc42385db7b00.php';
+
+$classes = [];
+$classes[] = 'Symfony\\Component\\Routing\\Generator\\CompiledUrlGenerator';
+$classes[] = 'Symfony\\Bundle\\FrameworkBundle\\Routing\\RedirectableCompiledUrlMatcher';
+$classes[] = 'Symfony\\Component\\Routing\\Annotation\\Route';
+Preloader::preload($classes);

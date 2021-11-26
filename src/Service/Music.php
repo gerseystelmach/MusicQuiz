@@ -71,7 +71,6 @@ class Music
                 ]
             ]
         );
-        //dd($response);
         $statusCode = $response->getStatusCode(); // get Response status code 200
         if ($statusCode === Music::STATUS) {
             $xmlContent = $response->getContent();
@@ -120,6 +119,66 @@ class Music
         $response = $client->request(
             'GET',
             'http://api.music-story.com/fr/artist/' . $artistId . '/pictures',
+            [
+                'query' => [
+                    'oauth_token' => $tokensSignature['tokens']['data']['token'],
+                    'oauth_signature' => $oauth_signature,
+                ]
+            ]
+        );
+        $statusCode = $response->getStatusCode(); // get Response status code 200
+        if ($statusCode === Music::STATUS) {
+            $xmlContent = $response->getContent();
+            $xml = simplexml_load_string($xmlContent);
+            $json = json_encode($xml);
+            $content = json_decode($json,TRUE);
+
+            return $content;
+        }
+        throw new RuntimeException('Le service est temporairement indisponible.');
+    }
+
+    public function getAlbums(String $artistId)
+    {
+        $tokensSignature = $this->getTokens();
+        $token = $tokensSignature['tokens']['data']['token'];
+        $request = 'http://api.music-story.com/fr/artist/' . $artistId . '/albums?oauth_token=' . $token;
+        $client = HttpClient::create();
+        $secretToken = $tokensSignature['tokens']['data']['token_secret'];
+        $oauth_signature=$this->sign_request($request, $this->secret_key, $secretToken, 'GET');
+        $response = $client->request(
+            'GET',
+            'http://api.music-story.com/fr/artist/' . $artistId . '/albums',
+            [
+                'query' => [
+                    'oauth_token' => $tokensSignature['tokens']['data']['token'],
+                    'oauth_signature' => $oauth_signature,
+                ]
+            ]
+        );
+        $statusCode = $response->getStatusCode(); // get Response status code 200
+        if ($statusCode === Music::STATUS) {
+            $xmlContent = $response->getContent();
+            $xml = simplexml_load_string($xmlContent);
+            $json = json_encode($xml);
+            $content = json_decode($json,TRUE);
+
+            return $content;
+        }
+        throw new RuntimeException('Le service est temporairement indisponible.');
+    }
+
+    public function getTracks(String $artistId)
+    {
+        $tokensSignature = $this->getTokens();
+        $token = $tokensSignature['tokens']['data']['token'];
+        $request = 'http://api.music-story.com/fr/artist/' . $artistId . '/tracks?oauth_token=' . $token;
+        $client = HttpClient::create();
+        $secretToken = $tokensSignature['tokens']['data']['token_secret'];
+        $oauth_signature=$this->sign_request($request, $this->secret_key, $secretToken, 'GET');
+        $response = $client->request(
+            'GET',
+            'http://api.music-story.com/fr/artist/' . $artistId . '/tracks',
             [
                 'query' => [
                     'oauth_token' => $tokensSignature['tokens']['data']['token'],
