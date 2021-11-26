@@ -23,7 +23,6 @@ class IndexController extends AbstractController
             $artist = $artists;
         }
         $albums = $music->getAlbums($artist['id'])['data']['item'];
-        dd($albums);
         $pictures = $music->getPicture($artist['id'])['data']['item'];
 
         return $this->render('index.html.twig', [
