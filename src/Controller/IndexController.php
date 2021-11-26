@@ -3,12 +3,12 @@
 namespace App\Controller;
 
 use App\Form\QuizType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Service\Music;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Service\Music;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class IndexController extends AbstractController
 {
@@ -30,36 +30,59 @@ class IndexController extends AbstractController
         $albums = null;
 
 
-        if ($form->isSubmitted()) {
-       /*      if ($form->getData()["nom"] === $name1) { } */
+        $artistById1 = $music->getArtistById(rand(1, 1000));
+        $artistById2 = $music->getArtistById(rand(1, 1000));
 
 
-                $name1 = $form->getData()["nom"];
-                $name2 = str_replace(" ", "%20", $name1);
-                
-                $artist = "";
-                $artists = $music->getArtist($name2, $name1);
-                if (isset($artists[0])) {
-                    $artist = $artists[0];
-                } else {
-                    $artist = $artists;
+        if(isset($artistById1) == false){
+            while (isset($artistById1['name']) == false) {
+                $artistById1 = $music->getArtistById(rand(1, 1000));
+                if(isset($artistById1)){
+                    break;
                 }
-                $albums = $music->getAlbums($artist['id']);
-                $pictures = $music->getPicture($artist['id']);
-                $tracks = $music->getTracks($artist['id']);
-/* 
-                dd($artist); */
-           
-/* 
-                $this->addFlash('success', 'Vous avez trouvé le nom de l\'artiste'); */
-
+            }
         }
+
+        if(isset($artistById2) == false){
+            while (isset($artistById1['name']) == false) {
+                $artistById2 = $music->getArtistById(rand(1, 1000));
+                if(isset($artistById2)){
+                    break;
+                }
+            }
+        }
+       
+
+
+  /*       if ($form->isSubmitted()) { */
+
+            $name1 = $artistById1["name"]; /* $form->getData()["nom"] */
+            $name2 = str_replace(" ", "%20", $name1);
+      
+
+            $artist = "";
+            $artists = $music->getArtist($name2, $name1);
+            if (isset($artists[0])) {
+                $artist = $artists[0];
+            } else {
+                $artist = $artists;
+            }
+            $albums = $music->getAlbums($artist['id']);
+            $pictures = $music->getPicture($artist['id']);
+            $tracks = $music->getTracks($artist['id']);
+
+     /*        dd($artist);   */  
+   
 
         return $this->render('index.html.twig', [
             'artist' => $artist,
             'pictures' => $pictures,
             'albums' => $albums,
             'tracks' => $tracks,
+            'artistById' => $artistById1,
+            'artistById2' => $artistById2,
+            'artistById3' => $artistById3,
+            'artistById4' => $artistById4,
             'form' => $form->createView()
 
         ]);
