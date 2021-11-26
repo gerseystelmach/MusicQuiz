@@ -15,7 +15,13 @@ class IndexController extends AbstractController
     public function index(Music $music, SessionInterface $session): Response
     {
         $name = 'Bob%20Marley';
-        $artist = $music->getArtist('Bob%20Marley')['data']['item'][0];
+        $artists = "";
+        $artists = $music->getArtist('Ben%20Harper', 'Ben Harper')['data']['item'];
+        if (isset($artists[0])) {
+            $artist = $artists[0];
+        } else {
+            $artist = $artists;
+        }
         $pictures = $music->getPicture($artist['id'])['data']['item'];
 
         return $this->render('index.html.twig', [

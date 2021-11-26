@@ -52,7 +52,7 @@ class Music
         throw new RuntimeException('Le service est temporairement indisponible.');
     }
 
-    public function getArtist(String $name)
+    public function getArtist(String $name, String $name2)
     {
         $tokensSignature = $this->getTokens();
         $token = $tokensSignature['tokens']['data']['token'];
@@ -65,12 +65,13 @@ class Music
             'http://api.music-story.com/artist/search',
             [
                 'query' => [
-                    'name' => 'Bob Marley',
+                    'name' => $name2,
                     'oauth_token' => $tokensSignature['tokens']['data']['token'],
                     'oauth_signature' => $oauth_signature,
                 ]
             ]
         );
+        //dd($response);
         $statusCode = $response->getStatusCode(); // get Response status code 200
         if ($statusCode === Music::STATUS) {
             $xmlContent = $response->getContent();
