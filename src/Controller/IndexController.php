@@ -16,7 +16,7 @@ class IndexController extends AbstractController
     {
         $name1 = 'Bob%20Marley';
         $name2 = 'Bob Marley';
-        $artists = "";
+        $artist = "";
         $artists = $music->getArtist($name1, $name2);
         if (isset($artists[0])) {
             $artist = $artists[0];
@@ -25,13 +25,17 @@ class IndexController extends AbstractController
         }
         $albums = $music->getAlbums($artist['id']);
         $pictures = $music->getPicture($artist['id']);
-        $tracks = $music->getTracks($artist['id']);      
+        $tracks = $music->getTracks($artist['id']);
+
+        $artistId = rand(1, 1000);
+        $artistById = $music->getArtistById($artistId);
 
         return $this->render('index.html.twig', [
             'artist' => $artist,
             'pictures' => $pictures,
             'albums' => $albums,
             'tracks' => $tracks,
+            'artistById' => $artistById
         ]);
     }
 }
