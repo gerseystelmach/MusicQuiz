@@ -108,8 +108,6 @@ class Music
         return $oauth_signature;
     }
 
-
-    //http://api.music-story.com/fr/artist/878/pictures?oauth_signature=gG7k4C6dMqn0SbOs43JRhgH6Qok%3D&oauth_token=88be55b2055f14efba7f0c3cb5df6feea47c42a9
     public function getPicture(String $artistId)
     {
         $tokensSignature = $this->getTokens();
