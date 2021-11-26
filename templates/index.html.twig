@@ -10,19 +10,19 @@
 
 {% block body %}
 
-{% for label, messages in app.flashes %}
-    {% for message in messages %}
-        <div class="flash alert mt-5 w-100 position-fixed alert-{{ label }} alert-dismissible text-center">
-            {{ message }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    {% endfor %}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash alert mt-5 w-100 position-fixed alert-{{ label }} alert-dismissible text-center">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
 
-{% endfor %}
+    {% endfor %}
     <main>
-    
+
         <header>
             <h1 class="my-5">Music Quiz</h1>
         </header>
@@ -30,43 +30,45 @@
 
         <section class="container">
 
-            <div class="bg-light d-flex justify-content-center align-items-center flex-column p-5">
-            <h3 class="fw-bold">Qui a lancé cet album?</h3>
-             {% for album in albumsBobMarley %}
-
-             {{ dump (album)}}
-                Album :
-                {{  album.title }}
-                <br/>
-            {% endfor %}
-
-            </div>
-
-
-            <h2>{{  artist.name }}</h2>
-
-            {% for track in tracks %}
-                Track :
-                {{  track.title }}
-                <br/>
-            {% endfor %}
-            <br/>
-            <br/>
-            <div>
             {% form_theme form 'bootstrap_4_layout.html.twig' %}
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-primary mb-5"><i class="fa fa-edit"></i> {{ button_label|default('Jouer') }}</button>
-    {{ form_end(form) }}
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button class="btn btn-primary mb-5">
+                <i class="fa fa-edit"></i>
+                {{ button_label|default('Jouer') }}</button>
+            {{ form_end(form) }}
+
+            <div class="bg-light d-flex justify-content-center align-items-center flex-column p-5">
+                {% for album in albums %}
+                    <h3 class="fw-bold">Quel musique appartient a {{ artist.name }}?</h3>
+        {#             {{ dump (album)}}
+                      {{ dump (tracks)}}
+                    Album :
+                    {{  album.title }} #}
+                    <br/>
+                {% endfor %}
+
             </div>
-        
+            {# 
+                        
+                                    <h2>{{  artist.name }}</h2>
+                        
+                                    {% for track in tracks %}
+                                        Track :
+                                        {{  track.title }}
+                                        <br/>
+                                    {% endfor %}
+                                    <br/>
+                                    <br/>
+                                    <div> #}
 
-            {% for picture in pictures %}
-                <img class="fit-picture" src="{{ picture.url }}" alt="{{ artist.name }}">
-            {% endfor %}
+        </div>
 
-        </section>
 
-    </main>
+        {#           {% for picture in pictures %}
+                                <img class="fit-picture" src="{{ picture.url }}" alt="{{ artist.name }}">
+                            {% endfor %} #}
 
-{% endblock %}
+    </section>
+
+</main>{% endblock %}
