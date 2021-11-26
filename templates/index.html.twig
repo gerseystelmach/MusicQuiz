@@ -18,11 +18,20 @@
 </section>
 
 </main>
+
     <h2>{{  artist.name }}</h2>
+
+    {% for track in tracks %}
+        Track : {{  track.title }}
+        <br/>
+    {% endfor %}
+    <br/>
+    <br/>
     {% for album in albums %}
         Album : {{  album.title }}
         <br/>
     {% endfor %}
+
     {% for picture in pictures %}
         <img class="fit-picture"src="{{ picture.url }}"alt="{{  artist.name }}">
     {% endfor %}

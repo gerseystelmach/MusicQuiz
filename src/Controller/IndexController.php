@@ -14,9 +14,10 @@ class IndexController extends AbstractController
      */
     public function index(Music $music, SessionInterface $session): Response
     {
-        $name = 'Bob%20Marley';
+        $name1 = 'Bob%20Marley';
+        $name2 = 'Bob Marley';
         $artists = "";
-        $artists = $music->getArtist('Ben%20Harper', 'Ben Harper')['data']['item'];
+        $artists = $music->getArtist($name1, $name2)['data']['item'];
         if (isset($artists[0])) {
             $artist = $artists[0];
         } else {
@@ -24,11 +25,13 @@ class IndexController extends AbstractController
         }
         $albums = $music->getAlbums($artist['id'])['data']['item'];
         $pictures = $music->getPicture($artist['id'])['data']['item'];
+        $tracks = $music->getTracks($artist['id'])['data']['item'];      
 
         return $this->render('index.html.twig', [
             'artist' => $artist,
             'pictures' => $pictures,
             'albums' => $albums,
+            'tracks' => $tracks,
         ]);
     }
 }
