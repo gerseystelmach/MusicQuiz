@@ -17,15 +17,15 @@ class IndexController extends AbstractController
         $name1 = 'Bob%20Marley';
         $name2 = 'Bob Marley';
         $artists = "";
-        $artists = $music->getArtist($name1, $name2)['data']['item'];
+        $artists = $music->getArtist($name1, $name2);
         if (isset($artists[0])) {
             $artist = $artists[0];
         } else {
             $artist = $artists;
         }
-        $albums = $music->getAlbums($artist['id'])['data']['item'];
-        $pictures = $music->getPicture($artist['id'])['data']['item'];
-        $tracks = $music->getTracks($artist['id'])['data']['item'];      
+        $albums = $music->getAlbums($artist['id']);
+        $pictures = $music->getPicture($artist['id']);
+        $tracks = $music->getTracks($artist['id']);      
 
         return $this->render('index.html.twig', [
             'artist' => $artist,
