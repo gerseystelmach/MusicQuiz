@@ -4,6 +4,10 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    api_key: '%env(API_MUSIC_STORY_KEY)%'
+    secret_api_key: '%env(API_MUSIC_STORY_SECRET_KEY)%'
+    app.locales: [fr, en]
+    local: fr
 
 services:
     # default configuration for services in *this* file
@@ -23,3 +27,7 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Service\Music:
+        arguments:
+            $key: '%api_key%'
+            $secret_key: '%secret_api_key%'

@@ -18,4 +18,8 @@
 </section>
 
 </main>
+    <h2>{{  artist.name }}</h2>
+    {% for picture in pictures %}
+        <img class="fit-picture"src="{{ picture.url }}"alt="{{  artist.name }}">
+    {% endfor %}
 {% endblock %}
